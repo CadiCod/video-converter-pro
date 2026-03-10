@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Product Hunt — 1270x760</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      width: 1270px;
+      height: 760px;
+      overflow: hidden;
+      background: #08080c;
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: #e8e8f0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    body::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 30%, rgba(99, 102, 241, 0.08) 0%, transparent 60%);
+    }
+
+    .content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
+
+    .top-line {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+    }
+
+    h1 {
+      font-size: 40px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    .gradient {
+      background: linear-gradient(135deg, #6366f1 0%, #a78bfa 50%, #B8A0D2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .tagline {
+      font-size: 18px;
+      color: #9898b0;
+      margin-bottom: 36px;
+    }
+
+    /* Fake app window */
+    .app-window {
+      width: 880px;
+      height: 420px;
+      background: #0e0e14;
+      border: 1px solid #2a2a3a;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+      margin-bottom: 28px;
+    }
+    .app-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      background: #08080c;
+      border-bottom: 1px solid #2a2a3a;
+    }
+    .dot { width: 8px; height: 8px; border-radius: 50%; }
+    .dot.r { background: #f87171; }
+    .dot.y { background: #fbbf24; }
+    .dot.g { background: #34d399; }
+    .app-bar-title {
+      flex: 1;
+      text-align: center;
+      font-size: 11px;
+      color: #606078;
+      margin-right: 40px;
+    }
+    .app-body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: calc(100% - 36px);
+      color: #606078;
+      font-size: 14px;
+    }
+
+    /* Format badges at bottom */
+    .format-row {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+    }
+    .fmt {
+      padding: 8px 18px;
+      background: #12121c;
+      border: 1px solid #1a1a2a;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      color: #818cf8;
+    }
+
+    .footer {
+      position: absolute;
+      bottom: 24px;
+      font-size: 14px;
+      color: #9898b0;
+    }
+    .footer span { color: #B8A0D2; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <div class="content">
+    <div class="top-line">
+      <img class="icon" src="../src/assets/icon-64.png" alt="">
+      <h1>Video Converter Pro — <span class="gradient">Free &amp; Portable</span></h1>
+    </div>
+    <p class="tagline">Convert, compress &amp; optimize videos for any device. No install required.</p>
+
+    <div class="app-window">
+      <div class="app-bar">
+        <span class="dot r"></span>
+        <span class="dot y"></span>
+        <span class="dot g"></span>
+        <span class="app-bar-title">Video Converter Pro by Mezamii</span>
+      </div>
+      <div class="app-body">
+        [ Paste app screenshot here — or capture from npm start ]
+      </div>
+    </div>
+
+    <div class="format-row">
+      <span class="fmt">MP4</span>
+      <span class="fmt">MKV</span>
+      <span class="fmt">AVI</span>
+      <span class="fmt">MOV</span>
+      <span class="fmt">WebM</span>
+      <span class="fmt">WMV</span>
+      <span class="fmt">MP3</span>
+      <span class="fmt">GIF</span>
+    </div>
+  </div>
+  <div class="footer">Free tool by <span>Mezamii</span></div>
+</body>
+</html>

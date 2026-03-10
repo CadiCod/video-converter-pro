@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; media-src 'self' file:; connect-src 'self';">
+  <title>Video Converter Pro</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- ═══ Custom Title Bar ═══ -->
+  <header class="titlebar" id="titlebar">
+    <div class="titlebar-drag">
+      <div class="titlebar-logo">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polygon points="23 7 16 12 23 17 23 7"/>
+          <rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+        </svg>
+        <span>Video Converter Pro</span>
+        <span class="titlebar-by">by Mezamii</span>
+      </div>
+    </div>
+    <div class="titlebar-controls">
+      <button class="titlebar-btn" id="btn-minimize" title="Minimize">
+        <svg width="12" height="12" viewBox="0 0 12 12"><rect y="5" width="12" height="2" fill="currentColor"/></svg>
+      </button>
+      <button class="titlebar-btn" id="btn-maximize" title="Maximize">
+        <svg width="12" height="12" viewBox="0 0 12 12"><rect x="1" y="1" width="10" height="10" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
+      </button>
+      <button class="titlebar-btn btn-close" id="btn-close" title="Close">
+        <svg width="12" height="12" viewBox="0 0 12 12"><path d="M1 1L11 11M11 1L1 11" stroke="currentColor" stroke-width="1.5"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- ═══ Main App ═══ -->
+  <main class="app">
+
+    <!-- ─── Left Panel: Drop Zone & File List ─── -->
+    <section class="panel-left">
+
+      <!-- Drop Zone -->
+      <div class="dropzone" id="dropzone">
+        <div class="dropzone-content">
+          <div class="dropzone-icon">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+              <polyline points="17 8 12 3 7 8"/>
+              <line x1="12" y1="3" x2="12" y2="15"/>
+            </svg>
+          </div>
+          <h3>Drop videos here</h3>
+          <p>or <button class="link-btn" id="btn-browse">browse files</button></p>
+          <span class="dropzone-hint">Supports MP4, AVI, MKV, MOV, WebM, and 20+ formats</span>
+        </div>
+      </div>
+
+      <!-- Video Preview -->
+      <div class="video-preview hidden" id="video-preview">
+        <div class="preview-header">
+          <h3>Preview</h3>
+          <button class="icon-btn" id="btn-close-preview" title="Close preview">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+        <div class="preview-player">
+          <video id="preview-video" controls preload="metadata"></video>
+        </div>
+        <div class="preview-info" id="preview-info">
+          <!-- Metadata filled by JS -->
+        </div>
+      </div>
+
+      <!-- File Queue -->
+      <div class="file-queue hidden" id="file-queue">
+        <div class="queue-header">
+          <h3>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/>
+            </svg>
+            Files <span class="badge" id="file-count">0</span>
+          </h3>
+          <div class="queue-actions">
+            <button class="icon-btn" id="btn-add-more" title="Add more files">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </button>
+            <button class="icon-btn" id="btn-clear-all" title="Clear all">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="queue-list" id="queue-list">
+          <!-- File items will be inserted here -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── Right Panel: Settings & Controls ─── -->
+    <section class="panel-right">
+
+      <!-- Tab Navigation -->
+      <div class="tabs">
+        <button class="tab active" data-tab="format">Format</button>
+        <button class="tab" data-tab="quality">Quality</button>
+        <button class="tab" data-tab="device">Device</button>
+        <button class="tab" data-tab="advanced">Advanced</button>
+      </div>
+
+      <!-- Tab Content: Format -->
+      <div class="tab-content active" id="tab-format">
+        <div class="section">
+          <h4>Output Format</h4>
+          <div class="format-group">
+            <h5>Video</h5>
+            <div class="format-grid" id="format-grid-video">
+              <!-- Video formats generated by JS -->
+            </div>
+          </div>
+          <div class="format-group">
+            <h5>Audio Only</h5>
+            <div class="format-grid" id="format-grid-audio">
+              <!-- Audio formats generated by JS -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab Content: Quality -->
+      <div class="tab-content" id="tab-quality">
+        <div class="section">
+          <h4>Quality Preset</h4>
+          <div class="preset-list" id="quality-presets">
+            <!-- Quality presets generated by JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab Content: Device -->
+      <div class="tab-content" id="tab-device">
+        <div class="section">
+          <h4>Device Profile</h4>
+          <p class="section-hint">Automatically optimizes format, codec, and settings for the selected device.</p>
+          <div class="device-grid" id="device-grid">
+            <!-- Device profiles generated by JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab Content: Advanced -->
+      <div class="tab-content" id="tab-advanced">
+        <div class="section">
+          <h4>Resolution</h4>
+          <select class="select" id="select-resolution">
+            <!-- Resolutions generated by JS -->
+          </select>
+        </div>
+        <div class="section">
+          <h4>Custom CRF <span class="hint">(0 = lossless, 51 = worst)</span></h4>
+          <div class="range-group">
+            <input type="range" class="range" id="range-crf" min="0" max="51" value="23">
+            <span class="range-value" id="crf-value">23</span>
+          </div>
+        </div>
+        <div class="section">
+          <h4>Frame Rate</h4>
+          <select class="select" id="select-fps">
+            <option value="original">Original</option>
+            <option value="60">60 fps</option>
+            <option value="30">30 fps</option>
+            <option value="24">24 fps (Cinema)</option>
+            <option value="15">15 fps</option>
+          </select>
+        </div>
+        <div class="section">
+          <h4>Audio Bitrate</h4>
+          <select class="select" id="select-audio-bitrate">
+            <option value="">Auto</option>
+            <option value="320k">320 kbps (Best)</option>
+            <option value="256k">256 kbps</option>
+            <option value="192k">192 kbps</option>
+            <option value="128k">128 kbps</option>
+            <option value="96k">96 kbps</option>
+            <option value="64k">64 kbps</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Output Directory -->
+      <div class="output-section">
+        <div class="output-header">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/>
+          </svg>
+          <span>Output:</span>
+          <span class="output-path" id="output-path" title="Click to change">Loading...</span>
+          <button class="icon-btn" id="btn-change-output" title="Change output directory">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Convert Button -->
+      <button class="btn-convert" id="btn-convert" disabled>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/>
+          <polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/>
+        </svg>
+        <span>Convert</span>
+      </button>
+
+    </section>
+
+  </main>
+
+  <!-- ═══ Progress Overlay ═══ -->
+  <div class="progress-overlay hidden" id="progress-overlay">
+    <div class="progress-panel">
+      <div class="progress-header">
+        <h3>Converting...</h3>
+        <span class="progress-count" id="progress-count">0 / 0</span>
+      </div>
+      <div class="progress-current" id="progress-current">
+        <div class="progress-filename" id="progress-filename">Preparing...</div>
+        <div class="progress-bar-container">
+          <div class="progress-bar" id="progress-bar"></div>
+        </div>
+        <div class="progress-stats">
+          <span id="progress-percent">0%</span>
+          <span id="progress-speed"></span>
+          <span id="progress-time"></span>
+        </div>
+      </div>
+      <div class="progress-overall">
+        <div class="progress-bar-container">
+          <div class="progress-bar overall" id="overall-bar"></div>
+        </div>
+        <span class="progress-overall-label">Overall progress</span>
+      </div>
+      <button class="btn-cancel" id="btn-cancel">Cancel</button>
+    </div>
+  </div>
+
+  <!-- ═══ Complete Overlay ═══ -->
+  <div class="complete-overlay hidden" id="complete-overlay">
+    <div class="complete-panel">
+      <div class="complete-icon">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+        </svg>
+      </div>
+      <h3>Conversion Complete!</h3>
+      <div class="complete-stats" id="complete-stats">
+        <!-- Stats generated by JS -->
+      </div>
+      <div class="complete-actions">
+        <button class="btn-primary" id="btn-open-folder">Open Folder</button>
+        <button class="btn-secondary" id="btn-convert-more">Convert More</button>
+      </div>
+      <div class="powered-by">
+        <span>Free tool by</span>
+        <a href="#" id="link-mezamii" class="mezamii-link">Mezamii</a>
+        <span class="powered-sep">·</span>
+        <a href="#" id="link-mezamii-courses" class="mezamii-link">Create your online courses →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ Notification Toast ═══ -->
+  <div class="toast hidden" id="toast">
+    <span class="toast-message" id="toast-message"></span>
+  </div>
+
+  <script src="js/presets.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

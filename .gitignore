@@ -1,0 +1,19 @@
+node_modules/
+dist/
+*.log
+.DS_Store
+Thumbs.db
+
+# Test video files
+IMG_5081.*
+*.test.mp4
+*.test.mkv
+
+# Generated icon sizes (keep SVG source + 512px + 256px + 64px)
+src/assets/icon-128.png
+src/assets/icon-48.png
+src/assets/icon-32.png
+src/assets/icon-16.png
+
+# Build artifacts
+.icon-ico/

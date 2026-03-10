@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Primary SEO -->
+  <title>Video Converter Pro — Free Portable Video Converter for Windows | Download</title>
+  <meta name="description" content="Free portable video converter for Windows. Convert between 20+ formats including MP4, AVI, MKV, MOV, WebM. Batch conversion, device profiles for iPhone, Android, YouTube, Instagram. No installation required.">
+  <meta name="keywords" content="video converter, free video converter, portable video converter, MP4 converter, batch video converter, video format converter, Windows video converter, convert MKV to MP4, video compressor, reduce video size">
+  <meta name="author" content="Mezamii SAS">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://mezamii.github.io/video-converter-pro/">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Video Converter Pro — Free Portable Video Converter">
+  <meta property="og:description" content="Convert between 20+ video formats. Free, portable, no installation required. Batch processing, device profiles, smart compression.">
+  <meta property="og:image" content="https://mezamii.github.io/video-converter-pro/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:url" content="https://mezamii.github.io/video-converter-pro/">
+  <meta property="og:site_name" content="Video Converter Pro by Mezamii">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Video Converter Pro — Free Video Converter">
+  <meta name="twitter:description" content="Convert 20+ formats. Free, portable, no install. Batch processing + device profiles.">
+  <meta name="twitter:image" content="https://mezamii.github.io/video-converter-pro/twitter-card.png">
+
+  <!-- Schema.org SoftwareApplication -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Video Converter Pro",
+    "operatingSystem": "Windows",
+    "applicationCategory": "MultimediaApplication",
+    "applicationSubCategory": "Video Converter",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "author": {
+      "@type": "Organization",
+      "name": "Mezamii SAS",
+      "url": "https://mezamii.com"
+    },
+    "softwareVersion": "1.0.0",
+    "fileSize": "105MB",
+    "downloadUrl": "https://github.com/mezamii/video-converter-pro/releases/latest",
+    "description": "Free portable video converter supporting 20+ formats with batch conversion and device profiles for iPhone, Android, YouTube, Instagram, TikTok.",
+    "featureList": [
+      "20+ video and audio format support",
+      "Batch conversion with progress tracking",
+      "Device profiles for iPhone, Android, YouTube, Instagram, TikTok",
+      "CRF-based smart compression",
+      "Audio extraction (MP3, AAC, WAV, OGG, M4A)",
+      "Portable - no installation required"
+    ]
+  }
+  </script>
+
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-4LQPFT3P9Z"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-4LQPFT3P9Z');
+  </script>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="../src/assets/icon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../src/assets/icon-16.png">
+
+  <style>
+    /* ═══ Reset & Base ═══ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+      background: #08080c;
+      color: #e8e8f0;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: #818cf8; text-decoration: none; transition: color 0.2s; }
+    a:hover { color: #a5b4fc; }
+    img { max-width: 100%; height: auto; }
+
+    /* ═══ Utility ═══ */
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    .text-center { text-align: center; }
+    .text-muted { color: #9898b0; }
+    .text-accent { color: #6366f1; }
+    .text-lavender { color: #B8A0D2; }
+    .gradient-text {
+      background: linear-gradient(135deg, #6366f1 0%, #a78bfa 50%, #B8A0D2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ═══ Header ═══ */
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(8, 8, 12, 0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid #1a1a2a;
+      padding: 14px 0;
+    }
+    .header .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .header-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      color: #e8e8f0;
+    }
+    .header-brand img { width: 28px; height: 28px; border-radius: 6px; }
+    .header-by { color: #9898b0; font-weight: 400; font-size: 13px; margin-left: 2px; }
+    .header-nav { display: flex; align-items: center; gap: 24px; }
+    .header-nav a { color: #9898b0; font-size: 13px; font-weight: 500; }
+    .header-nav a:hover { color: #e8e8f0; }
+    .btn-sm {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 18px;
+      background: #6366f1;
+      color: white;
+      font-size: 13px;
+      font-weight: 600;
+      border-radius: 8px;
+      transition: all 0.2s;
+    }
+    .btn-sm:hover { background: #7577f5; color: white; transform: translateY(-1px); }
+
+    /* ═══ Hero ═══ */
+    .hero {
+      padding: 100px 0 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -200px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 600px;
+      background: radial-gradient(ellipse, rgba(99, 102, 241, 0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      background: rgba(99, 102, 241, 0.1);
+      border: 1px solid rgba(99, 102, 241, 0.2);
+      border-radius: 50px;
+      font-size: 12px;
+      color: #818cf8;
+      font-weight: 500;
+      margin-bottom: 28px;
+    }
+    .hero-badge-dot {
+      width: 6px; height: 6px;
+      background: #34d399;
+      border-radius: 50%;
+    }
+    .hero h1 {
+      font-size: clamp(36px, 5vw, 56px);
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 20px;
+      letter-spacing: -0.02em;
+    }
+    .hero-sub {
+      font-size: clamp(16px, 2vw, 19px);
+      color: #9898b0;
+      max-width: 600px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+    }
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .btn-download {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 32px;
+      background: linear-gradient(135deg, #6366f1 0%, #818cf8 100%);
+      color: white;
+      font-size: 16px;
+      font-weight: 600;
+      border-radius: 12px;
+      transition: all 0.3s;
+      box-shadow: 0 4px 20px rgba(99, 102, 241, 0.3);
+    }
+    .btn-download:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(99, 102, 241, 0.45);
+      color: white;
+    }
+    .btn-download svg { flex-shrink: 0; }
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 16px 28px;
+      border: 1px solid #2a2a3a;
+      color: #9898b0;
+      font-size: 15px;
+      font-weight: 500;
+      border-radius: 12px;
+      transition: all 0.2s;
+    }
+    .btn-ghost:hover { border-color: #6366f1; color: #e8e8f0; }
+    .hero-meta {
+      margin-top: 20px;
+      font-size: 12px;
+      color: #606078;
+    }
+    .hero-meta span { margin: 0 8px; }
+
+    /* ═══ Screenshot ═══ */
+    .screenshot-section { padding: 0 0 80px; }
+    .screenshot-frame {
+      max-width: 900px;
+      margin: 0 auto;
+      background: #0e0e14;
+      border: 1px solid #2a2a3a;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    }
+    .screenshot-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 16px;
+      background: #08080c;
+      border-bottom: 1px solid #2a2a3a;
+    }
+    .screenshot-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+    }
+    .screenshot-dot.red { background: #f87171; }
+    .screenshot-dot.yellow { background: #fbbf24; }
+    .screenshot-dot.green { background: #34d399; }
+    .screenshot-frame img {
+      display: block;
+      width: 100%;
+    }
+    .screenshot-placeholder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 480px;
+      color: #606078;
+      font-size: 15px;
+    }
+
+    /* ═══ Features ═══ */
+    .features { padding: 80px 0; }
+    .features h2 {
+      font-size: clamp(28px, 3.5vw, 38px);
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 12px;
+    }
+    .features-sub {
+      text-align: center;
+      color: #9898b0;
+      font-size: 16px;
+      margin-bottom: 48px;
+      max-width: 560px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .feature-card {
+      padding: 28px 24px;
+      background: #0e0e14;
+      border: 1px solid #1a1a2a;
+      border-radius: 14px;
+      transition: all 0.3s;
+    }
+    .feature-card:hover {
+      border-color: #2a2a3a;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    }
+    .feature-icon {
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(99, 102, 241, 0.1);
+      border-radius: 10px;
+      margin-bottom: 16px;
+      font-size: 20px;
+    }
+    .feature-card h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .feature-card p {
+      font-size: 13.5px;
+      color: #9898b0;
+      line-height: 1.6;
+    }
+
+    /* ═══ Formats ═══ */
+    .formats { padding: 80px 0; }
+    .formats h2 {
+      font-size: clamp(28px, 3.5vw, 38px);
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    .formats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .format-col h3 {
+      font-size: 14px;
+      font-weight: 600;
+      color: #6366f1;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #1a1a2a;
+    }
+    .format-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .format-tag {
+      padding: 6px 14px;
+      background: #12121c;
+      border: 1px solid #1a1a2a;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #e8e8f0;
+      transition: all 0.2s;
+    }
+    .format-tag:hover {
+      border-color: #6366f1;
+      background: rgba(99, 102, 241, 0.08);
+    }
+
+    /* ═══ How It Works ═══ */
+    .how-it-works { padding: 80px 0; }
+    .how-it-works h2 {
+      font-size: clamp(28px, 3.5vw, 38px);
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .step {
+      text-align: center;
+      padding: 24px 16px;
+      position: relative;
+    }
+    .step-number {
+      width: 48px;
+      height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #6366f1, #818cf8);
+      border-radius: 50%;
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    .step h3 {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .step p {
+      font-size: 12.5px;
+      color: #9898b0;
+    }
+
+    /* ═══ CTA Section ═══ */
+    .cta-section {
+      padding: 80px 0;
+      text-align: center;
+    }
+    .cta-box {
+      padding: 60px 40px;
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(184, 160, 210, 0.06) 100%);
+      border: 1px solid rgba(99, 102, 241, 0.15);
+      border-radius: 20px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .cta-box h2 {
+      font-size: clamp(24px, 3vw, 32px);
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .cta-box p {
+      color: #9898b0;
+      font-size: 15px;
+      margin-bottom: 32px;
+    }
+    .cta-requirements {
+      margin-top: 20px;
+      font-size: 12px;
+      color: #606078;
+    }
+
+    /* ═══ Footer ═══ */
+    .footer {
+      padding: 40px 0;
+      border-top: 1px solid #1a1a2a;
+      text-align: center;
+    }
+    .footer-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      color: #9898b0;
+      margin-bottom: 12px;
+    }
+    .footer-brand img {
+      width: 20px;
+      height: 20px;
+      border-radius: 4px;
+    }
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin-bottom: 16px;
+    }
+    .footer-links a { color: #606078; font-size: 13px; }
+    .footer-links a:hover { color: #9898b0; }
+    .footer-copy {
+      font-size: 12px;
+      color: #606078;
+    }
+    .footer-mezamii {
+      margin-top: 16px;
+      font-size: 13px;
+      color: #9898b0;
+    }
+    .footer-mezamii a {
+      color: #B8A0D2;
+      font-weight: 600;
+    }
+    .footer-mezamii a:hover { color: #d4c4e9; }
+
+    /* ═══ Responsive ═══ */
+    @media (max-width: 768px) {
+      .features-grid { grid-template-columns: 1fr; }
+      .formats-grid { grid-template-columns: 1fr; }
+      .steps { grid-template-columns: repeat(2, 1fr); }
+      .header-nav { display: none; }
+      .hero { padding: 60px 0 50px; }
+    }
+    @media (max-width: 480px) {
+      .steps { grid-template-columns: 1fr; }
+      .hero-actions { flex-direction: column; }
+      .btn-download, .btn-ghost { width: 100%; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══ Header ═══ -->
+  <header class="header">
+    <div class="container">
+      <div class="header-brand">
+        <img src="../src/assets/icon-32.png" alt="Video Converter Pro">
+        <span>Video Converter Pro</span>
+        <span class="header-by">by Mezamii</span>
+      </div>
+      <nav class="header-nav">
+        <a href="#features">Features</a>
+        <a href="#formats">Formats</a>
+        <a href="#how-it-works">How It Works</a>
+        <a href="#download" class="btn-sm">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ═══ Hero ═══ -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-badge">
+        <span class="hero-badge-dot"></span>
+        v1.0.0 — Free &amp; Open Source
+      </div>
+      <h1>Convert Any Video.<br><span class="gradient-text">Free. Portable. Fast.</span></h1>
+      <p class="hero-sub">
+        20+ formats, batch conversion, device profiles for iPhone, Android, YouTube, Instagram &mdash; all in a portable app. No installation required.
+      </p>
+      <div class="hero-actions">
+        <a href="https://github.com/mezamii/video-converter-pro/releases/latest" class="btn-download" data-download="windows" onclick="trackDownload('windows', '1.0.0')">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download for Windows
+        </a>
+        <a href="https://github.com/mezamii/video-converter-pro" class="btn-ghost" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          View on GitHub
+        </a>
+      </div>
+      <p class="hero-meta">
+        Windows 10+ <span>|</span> 105 MB <span>|</span> No installation <span>|</span> MIT License
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══ Screenshot ═══ -->
+  <section class="screenshot-section">
+    <div class="container">
+      <div class="screenshot-frame">
+        <div class="screenshot-bar">
+          <span class="screenshot-dot red"></span>
+          <span class="screenshot-dot yellow"></span>
+          <span class="screenshot-dot green"></span>
+        </div>
+        <!-- Replace with actual screenshot: <img src="screenshot-app.png" alt="Video Converter Pro Interface"> -->
+        <div class="screenshot-placeholder">
+          <span>[ App screenshot — capture with <code>npm start</code> and paste here ]</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Features ═══ -->
+  <section class="features" id="features">
+    <div class="container">
+      <h2>Everything You Need to <span class="gradient-text">Convert Videos</span></h2>
+      <p class="features-sub">Professional video conversion tools, completely free. No watermarks, no limits, no accounts.</p>
+      <div class="features-grid">
+
+        <div class="feature-card">
+          <div class="feature-icon">&#127916;</div>
+          <h3>20+ Formats</h3>
+          <p>Convert between MP4, AVI, MKV, MOV, WebM, WMV, FLV, GIF, and more. Plus audio extraction to MP3, AAC, WAV, OGG, M4A.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">&#128241;</div>
+          <h3>Device Profiles</h3>
+          <p>One-click optimization for iPhone, Android, YouTube, Instagram, TikTok, Twitter, WhatsApp. Perfect settings every time.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">&#9889;</div>
+          <h3>Batch Convert</h3>
+          <p>Drop multiple files at once. Track progress for each file with real-time speed and time estimates.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">&#128230;</div>
+          <h3>Smart Compression</h3>
+          <p>CRF-based encoding reduces file size without visible quality loss. 5 quality presets from Maximum to Minimum.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">&#127925;</div>
+          <h3>Audio Extraction</h3>
+          <p>Extract audio tracks as MP3, AAC, WAV, OGG, or M4A. Perfect for podcasts, music, and voiceovers.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">&#128188;</div>
+          <h3>Portable &amp; Private</h3>
+          <p>Single executable, no installation needed. Runs from USB drives. No data leaves your computer, ever.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Formats ═══ -->
+  <section class="formats" id="formats">
+    <div class="container">
+      <h2>Supported <span class="gradient-text">Formats</span></h2>
+      <div class="formats-grid">
+        <div class="format-col">
+          <h3>Video Formats</h3>
+          <div class="format-list">
+            <span class="format-tag">MP4</span>
+            <span class="format-tag">AVI</span>
+            <span class="format-tag">MKV</span>
+            <span class="format-tag">MOV</span>
+            <span class="format-tag">WebM</span>
+            <span class="format-tag">WMV</span>
+            <span class="format-tag">FLV</span>
+            <span class="format-tag">GIF</span>
+            <span class="format-tag">TS</span>
+            <span class="format-tag">3GP</span>
+          </div>
+        </div>
+        <div class="format-col">
+          <h3>Audio Formats</h3>
+          <div class="format-list">
+            <span class="format-tag">MP3</span>
+            <span class="format-tag">AAC</span>
+            <span class="format-tag">WAV</span>
+            <span class="format-tag">OGG</span>
+            <span class="format-tag">M4A</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ How It Works ═══ -->
+  <section class="how-it-works" id="how-it-works">
+    <div class="container">
+      <h2>How It <span class="gradient-text">Works</span></h2>
+      <div class="steps">
+
+        <div class="step">
+          <div class="step-number">1</div>
+          <h3>Add Videos</h3>
+          <p>Drag &amp; drop files or browse. Any video format accepted.</p>
+        </div>
+
+        <div class="step">
+          <div class="step-number">2</div>
+          <h3>Choose Format</h3>
+          <p>Pick output format or select a device profile for auto-optimization.</p>
+        </div>
+
+        <div class="step">
+          <div class="step-number">3</div>
+          <h3>Set Quality</h3>
+          <p>Use a preset or fine-tune CRF, resolution, and frame rate.</p>
+        </div>
+
+        <div class="step">
+          <div class="step-number">4</div>
+          <h3>Convert!</h3>
+          <p>Click convert and watch real-time progress. Files save to your chosen folder.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Download CTA ═══ -->
+  <section class="cta-section" id="download">
+    <div class="container">
+      <div class="cta-box">
+        <h2>Ready to <span class="gradient-text">Convert?</span></h2>
+        <p>Download Video Converter Pro — it's completely free, no registration required.</p>
+        <a href="https://github.com/mezamii/video-converter-pro/releases/latest" class="btn-download" data-download="windows" onclick="trackDownload('windows', '1.0.0')">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download for Windows (105 MB)
+        </a>
+        <p class="cta-requirements">Requires Windows 10 or later &middot; x64 architecture &middot; No admin rights needed</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Footer ═══ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-brand">
+        <img src="../src/assets/icon-32.png" alt="">
+        Video Converter Pro
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/mezamii/video-converter-pro" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://github.com/mezamii/video-converter-pro/releases" target="_blank" rel="noopener">Releases</a>
+        <a href="https://github.com/mezamii/video-converter-pro/issues" target="_blank" rel="noopener">Report Bug</a>
+      </div>
+      <p class="footer-copy">&copy; 2026 Video Converter Pro. MIT License.</p>
+      <p class="footer-mezamii">
+        A free tool by <a href="https://mezamii.com?utm_source=videoconverter&utm_medium=landing&utm_campaign=footer" target="_blank" rel="noopener">Mezamii</a> &mdash; Create and sell your online courses
+      </p>
+    </div>
+  </footer>
+
+  <!-- ═══ Analytics ═══ -->
+  <script>
+    // Download tracking — works with GA4 when enabled
+    function trackDownload(platform, version) {
+      if (typeof gtag === 'function') {
+        gtag('event', 'file_download', {
+          file_name: 'VideoConverterPro-' + version + '-Portable.exe',
+          file_extension: 'exe',
+          link_classes: 'btn-download',
+          platform: platform,
+          app_version: version
+        });
+      }
+      // Console log for testing without GA4
+      console.log('[Download]', platform, 'v' + version);
+    }
+  </script>
+
+</body>
+</html>

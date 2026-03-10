@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Twitter Card — 1200x675</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      width: 1200px;
+      height: 675px;
+      overflow: hidden;
+      background: #08080c;
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: #e8e8f0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+    }
+
+    body::before {
+      content: '';
+      position: absolute;
+      top: -50px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 700px;
+      height: 500px;
+      background: radial-gradient(ellipse, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+    }
+
+    .content { position: relative; z-index: 1; }
+
+    .icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 18px;
+      margin-bottom: 28px;
+    }
+
+    h1 {
+      font-size: 52px;
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+    .gradient {
+      background: linear-gradient(135deg, #6366f1 0%, #a78bfa 50%, #B8A0D2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .subtitle {
+      font-size: 22px;
+      color: #9898b0;
+      margin-bottom: 36px;
+    }
+
+    .badges {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+    }
+    .badge {
+      padding: 10px 20px;
+      background: rgba(99, 102, 241, 0.1);
+      border: 1px solid rgba(99, 102, 241, 0.2);
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      color: #818cf8;
+    }
+
+    .footer {
+      position: absolute;
+      bottom: 28px;
+      font-size: 15px;
+      color: #9898b0;
+    }
+    .footer span { color: #B8A0D2; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <div class="content">
+    <img class="icon" src="../src/assets/icon-128.png" alt="">
+    <h1>Video Converter Pro<br><span class="gradient">Free &amp; Portable</span></h1>
+    <p class="subtitle">Convert 20+ formats. No install. No limits. No watermarks.</p>
+    <div class="badges">
+      <span class="badge">MP4 &middot; MKV &middot; AVI &middot; MOV &middot; WebM</span>
+      <span class="badge">iPhone &middot; Android &middot; YouTube</span>
+      <span class="badge">Batch Convert</span>
+    </div>
+  </div>
+  <div class="footer">Free tool by <span>Mezamii</span></div>
+</body>
+</html>
