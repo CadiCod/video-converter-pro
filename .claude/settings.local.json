@@ -1,0 +1,30 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install)",
+      "mcp__chrome-devtools__take_screenshot",
+      "mcp__chrome-devtools__list_pages",
+      "Bash(timeout 5 npx electron .)",
+      "Bash(node -e \":*)",
+      "Bash(CSC_IDENTITY_AUTO_DISCOVERY=false npx electron-builder --win portable)",
+      "Bash(xargs grep -l \"snld\")",
+      "Bash(xargs grep -l \"Nsis7z\\\\|7z.*extract\")",
+      "Bash(xargs grep -l \"7z\\\\|extract\\\\|snld\")",
+      "Bash(curl -L -o /tmp/winCodeSign.7z \"https://github.com/electron-userland/electron-builder-binaries/releases/download/winCodeSign-2.6.0/winCodeSign-2.6.0.7z\")",
+      "Bash(curl -L --ssl-no-revoke -o /tmp/winCodeSign.7z \"https://github.com/electron-userland/electron-builder-binaries/releases/download/winCodeSign-2.6.0/winCodeSign-2.6.0.7z\")",
+      "WebFetch(domain:mezamii.com)",
+      "Bash(npx electron-builder --win portable)",
+      "Bash(dir \"E:\\\\Video Converter\\\\dist\\\\VideoConverterPro-1.0.0-Portable.exe\")",
+      "Bash(powershell -Command \"\\(Get-Item ''E:\\\\Video Converter\\\\dist\\\\VideoConverterPro-1.0.0-Portable.exe''\\).Length / 1MB\")",
+      "Bash(npm install sharp@0.33.2 --save-dev)",
+      "Bash(node scripts/generate-icons.js)",
+      "Bash(ls -lh src/assets/icon*.png)",
+      "Bash(gh --version)",
+      "Bash(git --version)",
+      "Bash(winget install --id GitHub.cli --accept-package-agreements --accept-source-agreements)",
+      "Bash(export PATH=\"/c/Program Files/GitHub CLI:$PATH\")",
+      "Bash(gh auth status)",
+      "Bash(gh repo create video-converter-pro --public --description \"Free portable video converter — Convert, compress & optimize videos for any device. Built with Electron + FFmpeg.\" --source . --remote origin --push)"
+    ]
+  }
+}
