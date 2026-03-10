@@ -582,13 +582,17 @@ function initButtons() {
   document.getElementById('btn-convert-more').addEventListener('click', resetForMore);
 
   // Mezamii branding links — open in default browser
-  document.getElementById('link-mezamii').addEventListener('click', (e) => {
+  document.getElementById('link-mezamii-cta').addEventListener('click', (e) => {
     e.preventDefault();
-    window.api.openExternal('https://mezamii.com?utm_source=videoconverter&utm_medium=app&utm_campaign=free_tool');
+    window.api.openExternal('https://mezamii.com?utm_source=videoconverter&utm_medium=app&utm_campaign=completion_cta');
   });
-  document.getElementById('link-mezamii-courses').addEventListener('click', (e) => {
+  document.getElementById('mezamii-cta').addEventListener('click', (e) => {
+    if (e.target.closest('.mezamii-cta-btn')) return; // already handled above
+    window.api.openExternal('https://mezamii.com?utm_source=videoconverter&utm_medium=app&utm_campaign=completion_card');
+  });
+  document.getElementById('link-mezamii-sidebar').addEventListener('click', (e) => {
     e.preventDefault();
-    window.api.openExternal('https://mezamii.com?utm_source=videoconverter&utm_medium=app&utm_campaign=create_courses');
+    window.api.openExternal('https://mezamii.com?utm_source=videoconverter&utm_medium=app&utm_campaign=sidebar_promo');
   });
 }
 

@@ -151,6 +151,19 @@ MIT License — free for personal and commercial use.
 
 ---
 
+## About Mezamii
+
+**Video Converter Pro** is built by [**Mezamii SAS**](https://mezamii.com?utm_source=github&utm_medium=readme&utm_campaign=about_section) — an all-in-one platform to **create, host, and sell online courses**.
+
+If you're a creator, teacher, or entrepreneur looking to monetize your knowledge, check out Mezamii:
+
+- 🎓 **Course Builder** — Create beautiful courses with video, text, and quizzes
+- 💳 **Payment Processing** — Accept payments and manage subscriptions
+- 👥 **Student Management** — Track progress and engagement
+- 🎨 **Custom Branding** — Your brand, your platform
+
 <p align="center">
-  Made with ❤️ by <a href="https://mezamii.com?utm_source=github&utm_medium=readme&utm_campaign=video-converter-pro"><strong>Mezamii SAS</strong></a>
+  <a href="https://mezamii.com?utm_source=github&utm_medium=readme&utm_campaign=cta_button">
+    <img src="https://img.shields.io/badge/🚀_Discover_Mezamii-B8A0D2?style=for-the-badge&logoColor=0e0e14" alt="Discover Mezamii">
+  </a>
 </p>

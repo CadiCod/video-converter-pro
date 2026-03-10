@@ -982,30 +982,91 @@ html, body {
 }
 .btn-secondary:hover { background: var(--bg-hover); color: var(--text-primary); }
 
-/* ─── Powered By / Branding ─── */
-.powered-by {
-  margin-top: 18px;
-  padding-top: 14px;
-  border-top: 1px solid var(--border);
-  font-size: 13px;
-  color: var(--text-secondary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
+/* ─── Mezamii CTA Card (Completion Screen) ─── */
+.mezamii-cta-card {
+  margin-top: 20px;
+  padding: 16px 20px;
+  background: linear-gradient(135deg, rgba(184, 160, 210, 0.08) 0%, rgba(99, 102, 241, 0.08) 100%);
+  border: 1px solid rgba(184, 160, 210, 0.2);
+  border-radius: var(--radius);
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s;
 }
-
-.mezamii-link {
-  color: var(--accent-hover);
-  text-decoration: none;
+.mezamii-cta-card:hover {
+  border-color: rgba(184, 160, 210, 0.4);
+  background: linear-gradient(135deg, rgba(184, 160, 210, 0.12) 0%, rgba(99, 102, 241, 0.12) 100%);
+}
+.mezamii-cta-badge {
+  display: inline-block;
+  padding: 3px 10px;
+  background: rgba(184, 160, 210, 0.15);
+  border-radius: 20px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #B8A0D2;
+  margin-bottom: 8px;
+}
+.mezamii-cta-text {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-bottom: 10px;
+}
+.mezamii-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 20px;
+  background: #B8A0D2;
+  color: #0e0e14;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
   font-weight: 700;
   cursor: pointer;
-  transition: color 0.2s;
-  font-size: 13px;
+  text-decoration: none;
+  transition: all 0.2s;
 }
-.mezamii-link:hover { color: #a5b4fc; text-decoration: underline; }
+.mezamii-cta-btn:hover {
+  background: #d4c4e9;
+  transform: translateY(-1px);
+}
 
-.powered-sep { color: var(--text-secondary); }
+/* ─── Sidebar Promo ─── */
+.sidebar-promo {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+.sidebar-promo-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: rgba(184, 160, 210, 0.06);
+  border: 1px solid rgba(184, 160, 210, 0.12);
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+.sidebar-promo-link:hover {
+  background: rgba(184, 160, 210, 0.12);
+  border-color: rgba(184, 160, 210, 0.25);
+}
+.sidebar-promo-brand {
+  font-size: 12px;
+  font-weight: 700;
+  color: #B8A0D2;
+}
+.sidebar-promo-text {
+  font-size: 11px;
+  color: var(--text-muted);
+  transition: color 0.2s;
+}
+.sidebar-promo-link:hover .sidebar-promo-text {
+  color: var(--text-secondary);
+}
 
 /* ─── Error list in completion ─── */
 .complete-errors {
