@@ -10,18 +10,18 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/mezamii/video-converter-pro/releases/latest"><img src="https://img.shields.io/github/v/release/mezamii/video-converter-pro?color=6366f1&label=Download&style=for-the-badge" alt="Download"></a>
+  <a href="https://github.com/CadiCod/video-converter-pro/releases/latest"><img src="https://img.shields.io/github/v/release/mezamii/video-converter-pro?color=6366f1&label=Download&style=for-the-badge" alt="Download"></a>
   <img src="https://img.shields.io/badge/License-MIT-a78bfa?style=for-the-badge" alt="MIT License">
-  <a href="https://github.com/mezamii/video-converter-pro/releases"><img src="https://img.shields.io/github/downloads/mezamii/video-converter-pro/total?color=34d399&style=for-the-badge&label=Downloads" alt="Downloads"></a>
+  <a href="https://github.com/CadiCod/video-converter-pro/releases"><img src="https://img.shields.io/github/downloads/mezamii/video-converter-pro/total?color=34d399&style=for-the-badge&label=Downloads" alt="Downloads"></a>
   <img src="https://img.shields.io/badge/Price-Free-22c55e?style=for-the-badge" alt="Free">
 </p>
 
 <p align="center">
-  <a href="https://github.com/mezamii/video-converter-pro/releases/latest">
+  <a href="https://github.com/CadiCod/video-converter-pro/releases/latest">
     <img src="https://img.shields.io/badge/⬇_Download_Now-6366f1?style=for-the-badge&logoColor=white" alt="Download Now">
   </a>
   &nbsp;
-  <a href="https://mezamii.github.io/video-converter-pro/">
+  <a href="https://cadicod.github.io/video-converter-pro/">
     <img src="https://img.shields.io/badge/🌐_Website-0e0e14?style=for-the-badge" alt="Website">
   </a>
 </p>
@@ -97,7 +97,7 @@
 
 ### Pre-Built Portable Executable
 
-👉 **[Download for Windows](https://github.com/mezamii/video-converter-pro/releases/latest)** — No install needed, just run the .exe
+👉 **[Download for Windows](https://github.com/CadiCod/video-converter-pro/releases/latest)** — No install needed, just run the .exe
 
 **System Requirements:**
 - Windows 10 or later (64-bit)
@@ -108,7 +108,7 @@
 
 ```bash
 # Clone the repository
-git clone https://github.com/mezamii/video-converter-pro.git
+git clone https://github.com/CadiCod/video-converter-pro.git
 cd video-converter-pro
 
 # Install dependencies

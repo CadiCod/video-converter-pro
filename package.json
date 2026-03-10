@@ -5,10 +5,10 @@
   "main": "main.js",
   "author": "Mezamii SAS <contact@mezamii.com> (https://mezamii.com)",
   "license": "MIT",
-  "homepage": "https://mezamii.github.io/video-converter-pro/",
+  "homepage": "https://cadicod.github.io/video-converter-pro/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/mezamii/video-converter-pro.git"
+    "url": "https://github.com/CadiCod/video-converter-pro.git"
   },
   "scripts": {
     "start": "electron .",
