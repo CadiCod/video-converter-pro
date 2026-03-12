@@ -4,6 +4,9 @@
  * Adapted from src/js/presets.js for browser ES module usage
  */
 
+// Web/WASM-optimized presets: use faster x264 presets since single-threaded
+// WASM is ~5-10x slower than native FFmpeg. Quality difference between
+// 'ultrafast' and 'medium' is minimal at same CRF, but speed is dramatic.
 export const QUALITY_PRESETS = {
   maximum: {
     name: 'Maximum Quality',
@@ -15,7 +18,7 @@ export const QUALITY_PRESETS = {
       crf: 16,
       audioBitrate: '320k',
       pixelFormat: 'yuv420p',
-      outputOptions: ['-preset slow']
+      outputOptions: ['-preset veryfast']
     }
   },
   high: {
@@ -28,7 +31,7 @@ export const QUALITY_PRESETS = {
       crf: 20,
       audioBitrate: '192k',
       pixelFormat: 'yuv420p',
-      outputOptions: ['-preset medium']
+      outputOptions: ['-preset ultrafast']
     }
   },
   balanced: {
@@ -42,7 +45,7 @@ export const QUALITY_PRESETS = {
       crf: 23,
       audioBitrate: '128k',
       pixelFormat: 'yuv420p',
-      outputOptions: ['-preset medium']
+      outputOptions: ['-preset ultrafast']
     }
   },
   compact: {
@@ -55,7 +58,7 @@ export const QUALITY_PRESETS = {
       crf: 28,
       audioBitrate: '96k',
       pixelFormat: 'yuv420p',
-      outputOptions: ['-preset faster']
+      outputOptions: ['-preset ultrafast']
     }
   },
   minimum: {
@@ -69,7 +72,7 @@ export const QUALITY_PRESETS = {
       audioBitrate: '64k',
       pixelFormat: 'yuv420p',
       resolution: '1280x720',
-      outputOptions: ['-preset veryfast']
+      outputOptions: ['-preset ultrafast']
     }
   }
 };
@@ -85,7 +88,7 @@ export const DEVICE_PROFILES = {
       videoCodec: 'libx264',
       audioCodec: 'aac',
       pixelFormat: 'yuv420p',
-      outputOptions: ['-profile:v baseline', '-level 3.1', '-preset medium']
+      outputOptions: ['-profile:v baseline', '-level 3.1', '-preset ultrafast']
     }
   },
   iphone: {
@@ -98,7 +101,7 @@ export const DEVICE_PROFILES = {
       audioCodec: 'aac',
       pixelFormat: 'yuv420p',
       audioBitrate: '192k',
-      outputOptions: ['-profile:v high', '-level 4.2', '-preset medium']
+      outputOptions: ['-profile:v high', '-level 4.2', '-preset ultrafast']
     }
   },
   android: {
@@ -111,7 +114,7 @@ export const DEVICE_PROFILES = {
       audioCodec: 'aac',
       pixelFormat: 'yuv420p',
       audioBitrate: '128k',
-      outputOptions: ['-profile:v main', '-level 4.0', '-preset medium']
+      outputOptions: ['-profile:v main', '-level 4.0', '-preset ultrafast']
     }
   },
   web: {
@@ -124,7 +127,7 @@ export const DEVICE_PROFILES = {
       audioCodec: 'aac',
       crf: 23,
       pixelFormat: 'yuv420p',
-      outputOptions: ['-profile:v high', '-preset medium']
+      outputOptions: ['-profile:v high', '-preset ultrafast']
     }
   },
   youtube: {
@@ -138,7 +141,7 @@ export const DEVICE_PROFILES = {
       crf: 18,
       audioBitrate: '384k',
       pixelFormat: 'yuv420p',
-      outputOptions: ['-profile:v high', '-preset slow', '-bf 2', '-g 30']
+      outputOptions: ['-profile:v high', '-preset veryfast', '-bf 2', '-g 30']
     }
   },
   instagram: {
@@ -153,7 +156,7 @@ export const DEVICE_PROFILES = {
       audioBitrate: '128k',
       pixelFormat: 'yuv420p',
       resolution: '1080x1080',
-      outputOptions: ['-profile:v high', '-preset medium']
+      outputOptions: ['-profile:v high', '-preset ultrafast']
     }
   },
   tiktok: {
@@ -168,7 +171,7 @@ export const DEVICE_PROFILES = {
       audioBitrate: '128k',
       pixelFormat: 'yuv420p',
       resolution: '1080x1920',
-      outputOptions: ['-profile:v high', '-preset medium']
+      outputOptions: ['-profile:v high', '-preset ultrafast']
     }
   },
   twitter: {
@@ -182,7 +185,7 @@ export const DEVICE_PROFILES = {
       crf: 22,
       audioBitrate: '128k',
       pixelFormat: 'yuv420p',
-      outputOptions: ['-profile:v high', '-preset medium']
+      outputOptions: ['-profile:v high', '-preset ultrafast']
     }
   },
   whatsapp: {
@@ -197,7 +200,7 @@ export const DEVICE_PROFILES = {
       audioBitrate: '96k',
       pixelFormat: 'yuv420p',
       resolution: '720x?',
-      outputOptions: ['-profile:v baseline', '-level 3.0', '-preset fast']
+      outputOptions: ['-profile:v baseline', '-level 3.0', '-preset ultrafast']
     }
   },
   '4ktv': {
@@ -211,7 +214,7 @@ export const DEVICE_PROFILES = {
       crf: 18,
       audioBitrate: '320k',
       pixelFormat: 'yuv420p',
-      outputOptions: ['-profile:v high', '-level 5.1', '-preset slow']
+      outputOptions: ['-profile:v high', '-level 5.1', '-preset veryfast']
     }
   }
 };

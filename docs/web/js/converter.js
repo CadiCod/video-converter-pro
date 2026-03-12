@@ -176,7 +176,8 @@ export function buildArgs(inputName, outputName, options) {
       args.push('-movflags', '+faststart');
       break;
     case 'webm':
-      args.push('-deadline', 'good', '-cpu-used', '2');
+      // Use fastest VP9 settings for WASM (realtime + max cpu-used)
+      args.push('-deadline', 'realtime', '-cpu-used', '8', '-row-mt', '1');
       break;
     case 'gif':
       args.push('-an');
