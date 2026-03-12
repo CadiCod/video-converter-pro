@@ -21,15 +21,20 @@
     <img src="https://img.shields.io/badge/⬇_Download_Now-6366f1?style=for-the-badge&logoColor=white" alt="Download Now">
   </a>
   &nbsp;
-  <a href="https://cadicod.github.io/video-converter-pro/">
+  <a href="https://convert.mezamii.com/">
     <img src="https://img.shields.io/badge/🌐_Website-0e0e14?style=for-the-badge" alt="Website">
+  </a>
+  &nbsp;
+  <a href="https://convert.mezamii.com/web/">
+    <img src="https://img.shields.io/badge/🌐_Try_Online-6366f1?style=for-the-badge" alt="Try Online">
   </a>
 </p>
 
 ---
 
-<!-- Replace with an actual screenshot of the app -->
-<!-- <p align="center"><img src="site/screenshot.png" alt="App Screenshot" width="800"></p> -->
+<p align="center">
+  <img src="docs/captures/Preview-1.png" alt="Video Converter Pro Screenshot" width="800">
+</p>
 
 ## Features
 
@@ -138,12 +143,23 @@ npm run build:linux
 
 Built files go to the `dist/` folder.
 
+## Web Version (PWA)
+
+**[Try it online at convert.mezamii.com/web/](https://convert.mezamii.com/web/)** — no download needed!
+
+- Runs entirely in your browser using **FFmpeg WebAssembly**
+- No file uploads — your videos never leave your device
+- Installable as a PWA on iPhone, Android, or desktop
+- Supports 20+ formats, device profiles, and audio extraction
+
 ## Technology
 
 - **[Electron](https://www.electronjs.org/)** — Cross-platform desktop framework
-- **[FFmpeg](https://ffmpeg.org/)** — Industry-standard video processing engine
+- **[FFmpeg](https://ffmpeg.org/)** — Industry-standard video processing engine (also via WASM for web)
+- **[ffmpeg.wasm](https://ffmpegwasm.netlify.app/)** — FFmpeg compiled to WebAssembly for browser use
 - **H.264 + AAC** — Maximum device compatibility
 - **CRF Encoding** — Constant quality, variable bitrate compression
+- **PWA** — Progressive Web App, installable on any device
 
 ## License
 
