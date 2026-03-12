@@ -192,6 +192,11 @@ async function addFiles(fileList) {
       continue;
     }
 
+    // Warn about large files that may cause WASM memory issues
+    if (file.size > 200 * 1024 * 1024) {
+      showToast(`${file.name} (${(file.size / 1024 / 1024).toFixed(0)} MB) is large — conversion may be slow or fail. Try shorter clips for best results.`, 5000);
+    }
+
     const id = ++fileIdCounter;
     const entry = { id, file, name: file.name, size: file.size, metadata: null, status: 'pending', blobUrl: null };
     state.files.push(entry);
@@ -670,10 +675,24 @@ async function startConversion() {
     } catch (err) {
       console.error(`Conversion error (${entry.name}):`, err);
       entry.status = 'error';
-      conversionResults.push({ entry, error: err.message });
+
+      // Provide user-friendly error messages
+      let errorMsg = err.message || String(err);
+      if (errorMsg.includes('index out of bounds') || errorMsg.includes('out of memory') || errorMsg.includes('OOM')) {
+        errorMsg = 'File too large for browser memory. Try a smaller file or lower resolution.';
+      }
+      conversionResults.push({ entry, error: errorMsg });
+
+      // WASM memory errors corrupt the engine — always re-init after any error
+      try {
+        await cancelConversion();
+        await loadFFmpeg();
+      } catch {
+        break;
+      }
     }
 
-    // Reload FFmpeg if it was terminated (after cancel or error sometimes)
+    // Reload FFmpeg if it was terminated (after cancel)
     const status = getStatus();
     if (!status.isLoaded && state.isConverting) {
       try {
@@ -767,9 +786,25 @@ function showCompletionScreen() {
   }
 
   const heading = document.getElementById('complete-heading');
-  if (successful.length === 0 && failed.length > 0) heading.textContent = 'Conversion Failed';
-  else if (failed.length > 0) heading.textContent = 'Conversion Partially Complete';
-  else heading.textContent = 'Conversion Complete!';
+  const iconSuccess = document.getElementById('icon-success');
+  const iconError = document.getElementById('icon-error');
+  const iconPartial = document.getElementById('icon-partial');
+
+  // Reset all icons
+  iconSuccess.style.display = 'none';
+  iconError.style.display = 'none';
+  iconPartial.style.display = 'none';
+
+  if (successful.length === 0 && failed.length > 0) {
+    heading.textContent = 'Conversion Failed';
+    iconError.style.display = 'block';
+  } else if (failed.length > 0) {
+    heading.textContent = 'Conversion Partially Complete';
+    iconPartial.style.display = 'block';
+  } else {
+    heading.textContent = 'Conversion Complete!';
+    iconSuccess.style.display = 'block';
+  }
 
   document.getElementById('complete-overlay').classList.remove('hidden');
 }
