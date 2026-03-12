@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <!-- Primary SEO Meta -->
+  <title>Video Converter Pro Online — Free Video Converter for Any Device | Mezamii</title>
+  <meta name="description" content="Free online video converter that works on any device — iPhone, iPad, Android, tablet, or desktop. Convert between 15+ formats including MP4, WebM, MKV, MOV. No upload, no server — converts directly in your browser.">
+  <meta name="keywords" content="online video converter, free video converter, convert video on phone, convert video on iPad, MP4 converter, browser video converter, video converter no upload, convert MKV to MP4, video compressor, batch video converter">
+  <meta name="author" content="Mezamii SAS">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://cadicod.github.io/video-converter-pro/web/">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Video Converter Pro Online — Free Video Converter for Any Device">
+  <meta property="og:description" content="Convert videos directly in your browser. No upload, no server. Works on iPhone, iPad, Android, tablets, and desktop. 15+ formats, batch processing, device profiles.">
+  <meta property="og:image" content="https://cadicod.github.io/video-converter-pro/web/assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:url" content="https://cadicod.github.io/video-converter-pro/web/">
+  <meta property="og:site_name" content="Video Converter Pro by Mezamii">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Video Converter Pro Online — Free Video Converter">
+  <meta name="twitter:description" content="Convert videos in your browser. No upload needed. Works on any device. 15+ formats + device profiles.">
+  <meta name="twitter:image" content="https://cadicod.github.io/video-converter-pro/web/assets/twitter-card.png">
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Video Converter">
+  <link rel="apple-touch-icon" href="assets/icons/icon-192.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
+
+  <!-- Schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Video Converter Pro Online",
+    "url": "https://cadicod.github.io/video-converter-pro/web/",
+    "description": "Free online video converter that works on any device. Convert between 15+ formats directly in your browser — no upload, no server required.",
+    "applicationCategory": "MultimediaApplication",
+    "applicationSubCategory": "Video Converter",
+    "browserRequirements": "Requires a modern browser with WebAssembly support",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "author": {
+      "@type": "Organization",
+      "name": "Mezamii SAS",
+      "url": "https://mezamii.com"
+    },
+    "featureList": [
+      "15+ video and audio format support",
+      "Batch conversion with progress tracking",
+      "Device profiles for iPhone, Android, YouTube, Instagram, TikTok",
+      "CRF-based smart compression",
+      "Audio extraction (MP3, AAC, WAV, OGG, M4A)",
+      "Works on any device — phone, tablet, desktop",
+      "No upload required — converts locally in browser",
+      "Progressive Web App — installable"
+    ]
+  }
+  </script>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-brand">
+      <div class="header-logo">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+          <rect width="24" height="24" rx="6" fill="url(#headerGrad)"/>
+          <polygon points="10,7 17,12 10,17" fill="white"/>
+          <defs><linearGradient id="headerGrad" x1="0" y1="0" x2="24" y2="24"><stop offset="0%" stop-color="#6366f1"/><stop offset="100%" stop-color="#a78bfa"/></linearGradient></defs>
+        </svg>
+      </div>
+      <div>
+        <span class="header-title">Video Converter Pro</span>
+        <a href="https://mezamii.com?utm_source=videoconverter_web&utm_medium=webapp&utm_campaign=header" target="_blank" rel="noopener" class="header-mezamii">by Mezamii</a>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button id="btn-theme" class="btn-icon" title="Toggle theme" aria-label="Toggle dark/light mode">
+        <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <button id="btn-install" class="btn-install hidden" title="Install app">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Install
+      </button>
+    </div>
+  </header>
+
+  <!-- Main App Container -->
+  <main class="app-container">
+
+    <!-- FFmpeg Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+      <div class="loading-card">
+        <div class="loading-spinner"></div>
+        <h2>Loading Video Engine</h2>
+        <p>Downloading FFmpeg WebAssembly (~30 MB)</p>
+        <p class="loading-note">First load may take a moment. It's cached for future visits.</p>
+        <div id="loading-status" class="loading-status"></div>
+      </div>
+    </div>
+
+    <!-- App Content (hidden until FFmpeg loads) -->
+    <div id="app-content" class="app-content hidden">
+
+      <!-- Status Badge -->
+      <div class="status-bar">
+        <span id="ffmpeg-status" class="status-badge">
+          <span class="status-dot"></span>
+          <span id="status-text">Ready</span>
+        </span>
+      </div>
+
+      <!-- Drop Zone -->
+      <section class="dropzone-section">
+        <div id="dropzone" class="dropzone">
+          <svg class="dropzone-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="17 8 12 3 7 8"/>
+            <line x1="12" y1="3" x2="12" y2="15"/>
+          </svg>
+          <p class="dropzone-text">Drop video files here</p>
+          <p class="dropzone-hint">or tap to browse</p>
+          <input type="file" id="file-input" accept="video/*,audio/*,.mp4,.mkv,.avi,.mov,.webm,.wmv,.flv,.ts,.3gp,.gif,.mp3,.aac,.m4a,.wav,.ogg" multiple hidden>
+        </div>
+
+        <!-- File Queue -->
+        <div id="file-queue" class="file-queue hidden">
+          <div class="queue-header">
+            <span><strong id="file-count">0</strong> files selected</span>
+            <div class="queue-actions">
+              <button id="btn-add-more" class="btn-sm">Add More</button>
+              <button id="btn-clear-all" class="btn-sm btn-ghost">Clear All</button>
+            </div>
+          </div>
+          <div id="queue-list" class="queue-list"></div>
+        </div>
+      </section>
+
+      <!-- Video Preview -->
+      <section id="video-preview" class="video-preview hidden">
+        <div class="preview-header">
+          <span class="preview-title">Preview</span>
+          <button id="btn-close-preview" class="btn-icon-sm" aria-label="Close preview">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+        <video id="preview-video" controls playsinline></video>
+        <div id="preview-info" class="preview-info"></div>
+      </section>
+
+      <!-- Settings Tabs -->
+      <section class="settings-section">
+        <nav class="tabs" role="tablist">
+          <button class="tab active" data-tab="format" role="tab" aria-selected="true">Format</button>
+          <button class="tab" data-tab="quality" role="tab">Quality</button>
+          <button class="tab" data-tab="device" role="tab">Device</button>
+          <button class="tab" data-tab="advanced" role="tab">Advanced</button>
+        </nav>
+
+        <!-- Format Tab -->
+        <div id="tab-format" class="tab-content active">
+          <h3 class="tab-heading">Video Formats</h3>
+          <div id="format-grid-video" class="format-grid"></div>
+          <h3 class="tab-heading">Audio Only</h3>
+          <div id="format-grid-audio" class="format-grid"></div>
+        </div>
+
+        <!-- Quality Tab -->
+        <div id="tab-quality" class="tab-content">
+          <div id="quality-presets" class="preset-list"></div>
+        </div>
+
+        <!-- Device Tab -->
+        <div id="tab-device" class="tab-content">
+          <div id="device-grid" class="device-grid"></div>
+        </div>
+
+        <!-- Advanced Tab -->
+        <div id="tab-advanced" class="tab-content">
+          <div class="settings-group">
+            <label class="setting-label">Resolution</label>
+            <select id="select-resolution" class="setting-select"></select>
+          </div>
+          <div class="settings-group">
+            <label class="setting-label">Quality (CRF): <span id="crf-value">23</span></label>
+            <input type="range" id="range-crf" class="setting-range" min="0" max="51" value="23">
+            <div class="range-labels"><span>Best Quality</span><span>Smallest Size</span></div>
+          </div>
+          <div class="settings-group">
+            <label class="setting-label">Frame Rate</label>
+            <select id="select-fps" class="setting-select">
+              <option value="original">Original</option>
+              <option value="60">60 fps</option>
+              <option value="30">30 fps</option>
+              <option value="24">24 fps (Cinema)</option>
+              <option value="15">15 fps</option>
+            </select>
+          </div>
+          <div class="settings-group">
+            <label class="setting-label">Audio Bitrate</label>
+            <select id="select-audio-bitrate" class="setting-select">
+              <option value="">Auto</option>
+              <option value="320k">320 kbps (Highest)</option>
+              <option value="256k">256 kbps</option>
+              <option value="192k">192 kbps</option>
+              <option value="128k">128 kbps</option>
+              <option value="96k">96 kbps</option>
+              <option value="64k">64 kbps (Lowest)</option>
+            </select>
+          </div>
+        </div>
+      </section>
+
+      <!-- Convert Button -->
+      <section class="convert-section">
+        <button id="btn-convert" class="btn-convert" disabled>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/><line x1="4" y1="4" x2="9" y2="9"/></svg>
+          <span>Convert</span>
+        </button>
+        <p class="convert-note">Files are converted locally in your browser. Nothing is uploaded.</p>
+      </section>
+
+      <!-- Mezamii Promo -->
+      <section class="mezamii-promo">
+        <div class="promo-badge">BY THE MAKERS OF VIDEO CONVERTER PRO</div>
+        <h3 class="promo-title">Create & Sell Your Online Courses</h3>
+        <p class="promo-desc">Mezamii is an all-in-one platform to build, host, and monetize professional online courses.</p>
+        <a id="link-mezamii-promo" href="https://mezamii.com?utm_source=videoconverter_web&utm_medium=webapp&utm_campaign=promo_section" target="_blank" rel="noopener" class="btn-mezamii">Discover Mezamii</a>
+      </section>
+
+    </div><!-- /app-content -->
+
+    <!-- Progress Overlay -->
+    <div id="progress-overlay" class="overlay hidden">
+      <div class="overlay-card">
+        <h3>Converting...</h3>
+        <div class="progress-file" id="progress-filename">file.mp4</div>
+        <div class="progress-track">
+          <div class="progress-bar" id="progress-bar"></div>
+        </div>
+        <div class="progress-stats">
+          <span id="progress-percent">0%</span>
+          <span id="progress-count">1 / 1</span>
+        </div>
+        <div class="progress-detail">
+          <span id="progress-speed"></span>
+          <span id="progress-time"></span>
+        </div>
+        <h4 style="margin-top:1rem">Overall</h4>
+        <div class="progress-track">
+          <div class="progress-bar overall-bar" id="overall-bar"></div>
+        </div>
+        <button id="btn-cancel" class="btn-cancel">Cancel</button>
+      </div>
+    </div>
+
+    <!-- Completion Overlay -->
+    <div id="complete-overlay" class="overlay hidden">
+      <div class="overlay-card complete-card">
+        <div class="complete-check">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        <h3 id="complete-heading">Conversion Complete!</h3>
+        <div id="complete-stats" class="complete-stats"></div>
+        <div id="complete-errors" class="complete-errors" style="display:none"></div>
+        <div class="complete-actions">
+          <button id="btn-convert-more" class="btn-primary">Convert More Files</button>
+        </div>
+
+        <!-- Mezamii CTA -->
+        <div id="mezamii-cta" class="mezamii-cta">
+          <p class="mezamii-cta-text">Want to create and sell your own online courses?</p>
+          <a id="link-mezamii-cta" href="https://mezamii.com?utm_source=videoconverter_web&utm_medium=webapp&utm_campaign=completion_cta" target="_blank" rel="noopener" class="btn-mezamii-sm">Discover Mezamii</a>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>&copy; 2026 Video Converter Pro. MIT License.</p>
+    <p>A free tool by <a href="https://mezamii.com?utm_source=videoconverter_web&utm_medium=webapp&utm_campaign=footer" target="_blank" rel="noopener">Mezamii</a> &mdash; Create and sell your online courses</p>
+    <div class="footer-links">
+      <a href="https://github.com/CadiCod/video-converter-pro" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://cadicod.github.io/video-converter-pro/" target="_blank" rel="noopener">Desktop Version</a>
+    </div>
+  </footer>
+
+  <!-- Toast -->
+  <div id="toast" class="toast hidden">
+    <span id="toast-message"></span>
+  </div>
+
+  <!-- App Script -->
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
