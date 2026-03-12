@@ -8,7 +8,7 @@
  * Single-threaded ffmpeg.wasm works without SharedArrayBuffer.
  */
 
-const CACHE_NAME = 'vcp-web-v3';
+const CACHE_NAME = 'vcp-web-v4';
 const APP_SHELL = [
   './',
   './index.html',

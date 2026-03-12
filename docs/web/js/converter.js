@@ -177,11 +177,17 @@ export function buildArgs(inputName, outputName, options) {
       break;
     case 'webm':
       // Use fastest VP9 settings for WASM (realtime + max cpu-used)
-      args.push('-deadline', 'realtime', '-cpu-used', '8', '-row-mt', '1');
+      args.push('-deadline', 'realtime', '-cpu-used', '8');
       break;
     case 'gif':
       args.push('-an');
       if (!preset.fps) args.push('-r', '15');
+      if (!preset.resolution || preset.resolution === 'original') {
+        const hasVf = args.includes('-vf');
+        if (!hasVf) {
+          args.push('-vf', "scale='min(480,iw)':'-2'");
+        }
+      }
       break;
   }
 
@@ -270,8 +276,50 @@ function parseProbeOutput(log) {
 
 /**
  * Convert a video file
+ * For WebM/VP9: tries at original resolution first, auto-retries at 720p
+ * if WASM runs out of memory ("index out of bounds" RuntimeError).
  */
 export async function convertVideo(file, options, onProgress) {
+  if (!ffmpeg || !isLoaded) throw new Error('FFmpeg not loaded');
+
+  try {
+    return await _doConvert(file, options, onProgress);
+  } catch (err) {
+    const isMemoryError = err.message && (
+      err.message.includes('index out of bounds') ||
+      err.message.includes('memory access out of bounds') ||
+      err.message.includes('out of memory')
+    );
+
+    // Auto-retry WebM/GIF at lower resolution on WASM memory crash
+    if (isMemoryError && (options.outputFormat === 'webm' || options.outputFormat === 'gif')) {
+      console.warn(`WASM memory error at original resolution, retrying at 720p...`);
+
+      // Reload ffmpeg after crash
+      ffmpeg.terminate();
+      ffmpeg = null;
+      isLoaded = false;
+      await loadFFmpeg();
+
+      const retryOptions = {
+        ...options,
+        preset: {
+          ...(options.preset || {}),
+          resolution: options.outputFormat === 'gif' ? '480x?' : '1280x720'
+        }
+      };
+      if (onProgress) onProgress({ percent: 0, time: 0, retrying: true });
+      return await _doConvert(file, retryOptions, onProgress, ' (downscaled to 720p)');
+    }
+
+    throw err;
+  }
+}
+
+/**
+ * Internal conversion — separated so convertVideo can retry on failure
+ */
+async function _doConvert(file, options, onProgress, suffix = '') {
   if (!ffmpeg || !isLoaded) throw new Error('FFmpeg not loaded');
 
   const inputExt = file.name.split('.').pop();
@@ -313,7 +361,7 @@ export async function convertVideo(file, options, onProgress) {
     ffmpeg.off('progress', progressHandler);
 
     const baseName = file.name.replace(/\.[^.]+$/, '');
-    const outputFileName = `${baseName}.${options.outputFormat}`;
+    const outputFileName = `${baseName}${suffix}.${options.outputFormat}`;
 
     return {
       success: true,
