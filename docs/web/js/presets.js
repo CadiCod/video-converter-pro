@@ -222,7 +222,7 @@ export const DEVICE_PROFILES = {
 export const OUTPUT_FORMATS = {
   video: [
     { id: 'mp4', name: 'MP4', ext: 'mp4', description: 'Most compatible format', icon: 'film', wasmSupported: true },
-    { id: 'webm', name: 'WebM', ext: 'webm', description: 'Web optimized (VP9)', icon: 'globe', wasmSupported: true },
+    { id: 'webm', name: 'WebM', ext: 'webm', description: 'Web optimized (VP8)', icon: 'globe', wasmSupported: true },
     { id: 'avi', name: 'AVI', ext: 'avi', description: 'Legacy format', icon: 'film', wasmSupported: true },
     { id: 'mkv', name: 'MKV', ext: 'mkv', description: 'Feature-rich container', icon: 'film', wasmSupported: true },
     { id: 'mov', name: 'MOV', ext: 'mov', description: 'Apple QuickTime', icon: 'film', wasmSupported: true },

@@ -87,8 +87,10 @@ export function buildArgs(inputName, outputName, options) {
       if (!audioCodec) audioCodec = 'aac';
       break;
     case 'webm':
-      videoCodec = 'libvpx-vp9';
-      audioCodec = 'libopus';
+      // VP8 instead of VP9: uses ~4x less memory in WASM, much faster
+      // VP9 causes "index out of bounds" crashes on most real-world files
+      videoCodec = 'libvpx';
+      audioCodec = 'libvorbis';
       break;
     case 'gif':
       break;
@@ -110,7 +112,7 @@ export function buildArgs(inputName, outputName, options) {
   }
 
   const isX264 = videoCodec && (videoCodec === 'libx264' || videoCodec === 'libx265');
-  const isVP9 = videoCodec === 'libvpx-vp9';
+  const isVPx = videoCodec === 'libvpx' || videoCodec === 'libvpx-vp9';
 
   // Video codec
   if (videoCodec) {
@@ -139,11 +141,13 @@ export function buildArgs(inputName, outputName, options) {
     args.push('-b:a', preset.audioBitrate);
   }
 
-  // CRF (quality-based encoding)
+  // CRF / quality-based encoding
   if (preset.crf !== undefined) {
-    if (isVP9) {
-      args.push('-b:v', '0');
+    if (isVPx) {
+      // VP8/VP9 use -crf with -b:v 0 for constant quality mode
+      args.push('-b:v', '1M');  // VP8 target bitrate (CQ mode)
       args.push('-crf', String(Math.min(preset.crf + 10, 63)));
+      args.push('-qmin', '0', '-qmax', '50');
     } else if (isX264) {
       args.push('-crf', String(preset.crf));
     }
@@ -176,7 +180,7 @@ export function buildArgs(inputName, outputName, options) {
       args.push('-movflags', '+faststart');
       break;
     case 'webm':
-      // Use fastest VP9 settings for WASM (realtime + max cpu-used)
+      // VP8 fastest settings for WASM
       args.push('-deadline', 'realtime', '-cpu-used', '8');
       break;
     case 'gif':
