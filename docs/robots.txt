@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://cadicod.github.io/video-converter-pro/sitemap.xml
+Sitemap: https://convert.mezamii.com/sitemap.xml
