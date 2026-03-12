@@ -1,9 +1,14 @@
 /**
  * Video Converter Pro (Web) - Service Worker
- * Handles: COOP/COEP header injection + App shell caching
+ * Handles: App shell caching + offline support
+ *
+ * Note: COOP/COEP headers removed intentionally.
+ * GitHub Pages doesn't support custom headers, and injecting them via SW
+ * causes cross-origin resource blocking for CDN assets (wasm, fonts, etc.).
+ * Single-threaded ffmpeg.wasm works without SharedArrayBuffer.
  */
 
-const CACHE_NAME = 'vcp-web-v1';
+const CACHE_NAME = 'vcp-web-v2';
 const APP_SHELL = [
   './',
   './index.html',
@@ -13,6 +18,13 @@ const APP_SHELL = [
   './js/converter.js',
   './js/theme.js',
   './js/analytics.js',
+  './js/ffmpeg/index.js',
+  './js/ffmpeg/classes.js',
+  './js/ffmpeg/const.js',
+  './js/ffmpeg/errors.js',
+  './js/ffmpeg/utils.js',
+  './js/ffmpeg/worker.js',
+  './js/ffmpeg/ffmpeg-core.js',
   './manifest.json',
   './assets/icons/favicon.svg'
 ];
@@ -42,71 +54,53 @@ self.addEventListener('activate', (event) => {
 });
 
 // ═══════════════════════════════════════════════════════════
-// FETCH — COOP/COEP header injection + caching
+// FETCH — Cache-first for app shell, network-first for CDN
 // ═══════════════════════════════════════════════════════════
 
 self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url);
 
-  // Only handle same-origin requests for COOP/COEP injection
   if (url.origin === self.location.origin) {
-    event.respondWith(handleSameOrigin(event.request));
+    // Same-origin: cache-first (app shell)
+    event.respondWith(cacheFirst(event.request));
   } else {
-    // Cross-origin: try cache first (for ffmpeg.wasm CDN resources)
-    event.respondWith(handleCrossOrigin(event.request));
+    // Cross-origin: network-first, cache CDN resources
+    event.respondWith(networkFirst(event.request));
   }
 });
 
-async function handleSameOrigin(request) {
-  // Try cache first for app shell resources
-  const cached = await caches.match(request);
-
-  let response;
-  if (cached) {
-    response = cached;
-  } else {
-    try {
-      response = await fetch(request);
-      // Cache successful GET responses
-      if (response.ok && request.method === 'GET') {
-        const cache = await caches.open(CACHE_NAME);
-        cache.put(request, response.clone());
-      }
-    } catch {
-      // Offline fallback for navigation requests
-      if (request.mode === 'navigate') {
-        return caches.match('./index.html');
-      }
-      return new Response('Offline', { status: 503 });
-    }
-  }
-
-  // Inject COOP/COEP headers for SharedArrayBuffer support
-  const headers = new Headers(response.headers);
-  headers.set('Cross-Origin-Opener-Policy', 'same-origin');
-  headers.set('Cross-Origin-Embedder-Policy', 'require-corp');
-
-  return new Response(response.body, {
-    status: response.status,
-    statusText: response.statusText,
-    headers
-  });
-}
-
-async function handleCrossOrigin(request) {
-  // Check cache first (ffmpeg.wasm files are large, worth caching)
+async function cacheFirst(request) {
   const cached = await caches.match(request);
   if (cached) return cached;
 
   try {
     const response = await fetch(request);
-    // Cache ffmpeg CDN resources for offline reuse
-    if (response.ok && request.url.includes('cdn.jsdelivr.net') && request.method === 'GET') {
+    if (response.ok && request.method === 'GET') {
       const cache = await caches.open(CACHE_NAME);
       cache.put(request, response.clone());
     }
     return response;
   } catch {
+    if (request.mode === 'navigate') {
+      return caches.match('./index.html');
+    }
+    return new Response('Offline', { status: 503 });
+  }
+}
+
+async function networkFirst(request) {
+  try {
+    const response = await fetch(request);
+    // Cache ffmpeg WASM binary and CDN resources for offline use
+    if (response.ok && request.method === 'GET' &&
+        (request.url.includes('cdn.jsdelivr.net') || request.url.includes('fonts.googleapis.com'))) {
+      const cache = await caches.open(CACHE_NAME);
+      cache.put(request, response.clone());
+    }
+    return response;
+  } catch {
+    const cached = await caches.match(request);
+    if (cached) return cached;
     return new Response('Network error', { status: 503 });
   }
 }

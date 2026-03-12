@@ -1,70 +1,54 @@
 /**
  * Video Converter Pro (Web) - FFmpeg.wasm Converter
  * Client-side video conversion using WebAssembly
+ *
+ * All ffmpeg.wasm JS files are self-hosted (same-origin) to avoid
+ * cross-origin Worker security errors on GitHub Pages.
+ * Only the large .wasm binary (~32 MB) is fetched from CDN.
  */
 
-const FFMPEG_CDN_BASE = 'https://cdn.jsdelivr.net/npm';
-const FFMPEG_VERSION = '0.12.10';
+import { FFmpeg } from './ffmpeg/index.js';
+
+const WASM_CDN = 'https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.12.10/dist/esm/ffmpeg-core.wasm';
 
 let ffmpeg = null;
 let isLoaded = false;
 let isMultiThread = false;
 
 /**
- * Fetch a CDN resource as a blob URL (required for COEP compliance)
- */
-async function fetchAsBlob(url) {
-  const response = await fetch(url);
-  const blob = await response.blob();
-  return URL.createObjectURL(blob);
-}
-
-/**
- * Load FFmpeg.wasm - auto-detects multi-thread vs single-thread
+ * Load FFmpeg.wasm — single-threaded mode (most compatible)
+ *
+ * Self-hosted JS files eliminate cross-origin Worker errors.
+ * The .wasm binary is fetched from CDN as a blob URL.
  */
 export async function loadFFmpeg(onLog) {
   if (isLoaded && ffmpeg) return { ffmpeg, isMultiThread };
 
-  // Import FFmpeg from CDN
-  const { FFmpeg } = await import(`${FFMPEG_CDN_BASE}/@ffmpeg/ffmpeg@${FFMPEG_VERSION}/dist/esm/index.js`);
   ffmpeg = new FFmpeg();
 
   if (onLog) {
     ffmpeg.on('log', ({ message }) => onLog(message));
   }
 
-  // Detect SharedArrayBuffer support for multi-threading
-  isMultiThread = typeof SharedArrayBuffer !== 'undefined' && window.crossOriginIsolated;
+  // Single-threaded mode: works everywhere (GitHub Pages, iPhone Safari, etc.)
+  // Multi-threaded requires COOP/COEP headers not available on GitHub Pages
+  isMultiThread = false;
 
   try {
-    if (isMultiThread) {
-      // Multi-threaded: faster but requires COOP/COEP headers
-      const coreURL = await fetchAsBlob(`${FFMPEG_CDN_BASE}/@ffmpeg/core-mt@${FFMPEG_VERSION}/dist/esm/ffmpeg-core.js`);
-      const wasmURL = await fetchAsBlob(`${FFMPEG_CDN_BASE}/@ffmpeg/core-mt@${FFMPEG_VERSION}/dist/esm/ffmpeg-core.wasm`);
-      const workerURL = await fetchAsBlob(`${FFMPEG_CDN_BASE}/@ffmpeg/core-mt@${FFMPEG_VERSION}/dist/esm/ffmpeg-core.worker.js`);
+    // Self-hosted core JS (same-origin, no cross-origin issues)
+    const coreURL = new URL('./ffmpeg/ffmpeg-core.js', import.meta.url).href;
 
-      await ffmpeg.load({ coreURL, wasmURL, workerURL });
-      console.log('FFmpeg loaded (multi-threaded)');
-    } else {
-      // Single-threaded fallback: works everywhere
-      const coreURL = await fetchAsBlob(`${FFMPEG_CDN_BASE}/@ffmpeg/core@${FFMPEG_VERSION}/dist/esm/ffmpeg-core.js`);
-      const wasmURL = await fetchAsBlob(`${FFMPEG_CDN_BASE}/@ffmpeg/core@${FFMPEG_VERSION}/dist/esm/ffmpeg-core.wasm`);
+    // Fetch the large WASM binary from CDN as blob URL
+    const wasmResponse = await fetch(WASM_CDN);
+    if (!wasmResponse.ok) throw new Error(`WASM fetch failed: ${wasmResponse.status}`);
+    const wasmBlob = await wasmResponse.blob();
+    const wasmURL = URL.createObjectURL(wasmBlob);
 
-      await ffmpeg.load({ coreURL, wasmURL });
-      console.log('FFmpeg loaded (single-threaded)');
-    }
+    await ffmpeg.load({ coreURL, wasmURL });
+    console.log('FFmpeg loaded (single-threaded)');
   } catch (err) {
-    // If multi-thread fails, fall back to single-thread
-    if (isMultiThread) {
-      console.warn('Multi-thread load failed, falling back to single-thread:', err.message);
-      isMultiThread = false;
-      const coreURL = await fetchAsBlob(`${FFMPEG_CDN_BASE}/@ffmpeg/core@${FFMPEG_VERSION}/dist/esm/ffmpeg-core.js`);
-      const wasmURL = await fetchAsBlob(`${FFMPEG_CDN_BASE}/@ffmpeg/core@${FFMPEG_VERSION}/dist/esm/ffmpeg-core.wasm`);
-      await ffmpeg.load({ coreURL, wasmURL });
-      console.log('FFmpeg loaded (single-threaded fallback)');
-    } else {
-      throw err;
-    }
+    console.error('FFmpeg load error:', err);
+    throw new Error(`Failed to load video engine: ${err.message}`);
   }
 
   isLoaded = true;
@@ -142,7 +126,6 @@ export function buildArgs(inputName, outputName, options) {
   if (preset.resolution && preset.resolution !== 'original') {
     const res = preset.resolution;
     if (res.includes('?')) {
-      // Dynamic height: e.g., "720x?" → scale to width 720, keep aspect
       const width = res.split('x')[0];
       args.push('-vf', `scale=${width}:-2`);
     } else {
@@ -179,11 +162,9 @@ export function buildArgs(inputName, outputName, options) {
   // Additional output options (from presets)
   if (preset.outputOptions) {
     for (const opt of preset.outputOptions) {
-      // Skip x264-specific options for non-x264 codecs
       if (!isX264 && (opt.startsWith('-preset') || opt.startsWith('-profile:v') || opt.startsWith('-level'))) {
         continue;
       }
-      // Split "-preset medium" into ["-preset", "medium"]
       const parts = opt.trim().split(/\s+/);
       args.push(...parts);
     }
@@ -198,7 +179,7 @@ export function buildArgs(inputName, outputName, options) {
       args.push('-deadline', 'good', '-cpu-used', '2');
       break;
     case 'gif':
-      args.push('-an'); // No audio
+      args.push('-an');
       if (!preset.fps) args.push('-r', '15');
       break;
   }
@@ -228,12 +209,10 @@ export async function probeVideo(file) {
   try {
     await ffmpeg.writeFile(inputName, new Uint8Array(await file.arrayBuffer()));
 
-    // Collect log output
     let logOutput = '';
     const logHandler = ({ message }) => { logOutput += message + '\n'; };
     ffmpeg.on('log', logHandler);
 
-    // Run ffmpeg -i (will "fail" since no output, but we get metadata from logs)
     try {
       await ffmpeg.exec(['-i', inputName]);
     } catch {
@@ -241,11 +220,7 @@ export async function probeVideo(file) {
     }
 
     ffmpeg.off('log', logHandler);
-
-    // Parse metadata from log output
     const metadata = parseProbeOutput(logOutput);
-
-    // Cleanup
     try { await ffmpeg.deleteFile(inputName); } catch {}
 
     return metadata;
@@ -261,34 +236,29 @@ export async function probeVideo(file) {
 function parseProbeOutput(log) {
   const result = { duration: 0, video: null, audio: null };
 
-  // Duration: 00:01:30.50
   const durMatch = log.match(/Duration:\s*(\d+):(\d+):(\d+)\.(\d+)/);
   if (durMatch) {
     result.duration = parseInt(durMatch[1]) * 3600 + parseInt(durMatch[2]) * 60 +
       parseInt(durMatch[3]) + parseInt(durMatch[4]) / 100;
   }
 
-  // Video stream: Stream #0:0... Video: h264 ... 1920x1080 ... 30 fps
   const videoMatch = log.match(/Stream\s+#\d+:\d+.*Video:\s+(\w+).*?,\s*(\d+)x(\d+)/);
   if (videoMatch) {
     result.video = {
       codec: videoMatch[1],
       width: parseInt(videoMatch[2]),
       height: parseInt(videoMatch[3]),
-      fps: 30 // Default
+      fps: 30
     };
-    // Try to extract fps
     const fpsMatch = log.match(/(\d+(?:\.\d+)?)\s+fps/);
     if (fpsMatch) result.video.fps = parseFloat(fpsMatch[1]);
   }
 
-  // Audio stream
   const audioMatch = log.match(/Stream\s+#\d+:\d+.*Audio:\s+(\w+)/);
   if (audioMatch) {
     result.audio = { codec: audioMatch[1] };
   }
 
-  // Bitrate
   const bitrateMatch = log.match(/bitrate:\s*(\d+)\s*kb\/s/);
   if (bitrateMatch) {
     result.bitrate = parseInt(bitrateMatch[1]) * 1000;
@@ -307,7 +277,6 @@ export async function convertVideo(file, options, onProgress) {
   const inputName = `input_${Date.now()}.${inputExt}`;
   const outputName = `output_${Date.now()}.${options.outputFormat}`;
 
-  // Set up progress handler
   const progressHandler = ({ progress, time }) => {
     if (onProgress) {
       onProgress({
@@ -319,20 +288,16 @@ export async function convertVideo(file, options, onProgress) {
   ffmpeg.on('progress', progressHandler);
 
   try {
-    // Write input file to virtual filesystem
     const fileData = new Uint8Array(await file.arrayBuffer());
     await ffmpeg.writeFile(inputName, fileData);
 
-    // Build and execute conversion
     const args = buildArgs(inputName, outputName, options);
     console.log('FFmpeg args:', args.join(' '));
 
     await ffmpeg.exec(args);
 
-    // Read output file
     const outputData = await ffmpeg.readFile(outputName);
 
-    // Create download blob
     const mimeTypes = {
       'mp4': 'video/mp4', 'webm': 'video/webm', 'avi': 'video/x-msvideo',
       'mkv': 'video/x-matroska', 'mov': 'video/quicktime', 'flv': 'video/x-flv',
@@ -342,13 +307,10 @@ export async function convertVideo(file, options, onProgress) {
     };
     const blob = new Blob([outputData.buffer], { type: mimeTypes[options.outputFormat] || 'application/octet-stream' });
 
-    // Cleanup virtual filesystem
     try { await ffmpeg.deleteFile(inputName); } catch {}
     try { await ffmpeg.deleteFile(outputName); } catch {}
-
     ffmpeg.off('progress', progressHandler);
 
-    // Generate output filename
     const baseName = file.name.replace(/\.[^.]+$/, '');
     const outputFileName = `${baseName}.${options.outputFormat}`;
 
@@ -359,7 +321,6 @@ export async function convertVideo(file, options, onProgress) {
       outputSize: blob.size
     };
   } catch (err) {
-    // Cleanup on error
     try { await ffmpeg.deleteFile(inputName); } catch {}
     try { await ffmpeg.deleteFile(outputName); } catch {}
     ffmpeg.off('progress', progressHandler);
